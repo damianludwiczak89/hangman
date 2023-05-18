@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#new_game').style.display = "none";
         document.querySelector('#guess').disabled = false;
         document.querySelector('#blanks').style.animationPlayState = "paused";
+        document.querySelector('#input_main').style.display = "none";
         mistakes = 0;
 
     }
@@ -134,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide input field
     document.querySelector('#guess').style.display = "none";
     document.querySelector('#new_game').style.display = "none";
+    document.querySelector('#input_main').style.display = "none";
 
     // Generate password from chosen category
     document.querySelectorAll('a').forEach(function(button) {
@@ -171,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector('#guess_form').style.display = "block";
                 document.querySelector('#categories').style.display = "none";
                 document.querySelector('#guess').style.display = "block";
+                document.querySelector('#input_main').style.display = "block";
                 let blanks = "";
                 for (i = 0; i < password.length; i++) {
                     blanks += "_ ";
@@ -188,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mistake counter
     let mistakes = 0;
-
+    let input = "";
     // Check if input is correct
     document.querySelector('#check').onsubmit = () =>{ 
         let guess = document.querySelector('#guess').value;
@@ -198,7 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => { 
             let blanks = document.querySelector('#blanks').innerHTML;
             document.querySelector('#guess').value = "";
-
+            input = `\n${input}\n${guess}`
+            document.querySelector('#input').innerHTML = input;
             // If response is 1, that means full password is guessed, and user won
             if (response === 1) {
                 document.querySelector('#blanks').style.animationPlayState = "running";
