@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+        <title>HANGMAN</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{% static 'hangman/styles.css' %}" rel="stylesheet">
+        <script src="{% static 'hangman/functions.js' %}"></script>
+    </head>
+    <body>
+        <div id="night_mode">night mode</div>
+        <div id="main">
+            <label class="switch">   
+                <input id="night" type="checkbox" style="margin-top: 15px;">
+                <span class="slider round"></span>
+            </label>
+        <div id="title">
+        <a data-id="animals" href="{% url 'index' %}"><pre>{{ title }}</pre></a>
+        </div>
+        <div id="stats">
+            <div id="games_stat"></div>
+            <div id="animals_stat"></div>
+            <div id="countries_stat"></div>
+            <div id="fruits_stat"></div>
+            <div id="vegetables_stat"></div>
+        </div>
+
+        </div>
+    </div>
+
+    
+
+
+
+
+    <div id="menu">
+        <div id="categories">
+            <pre id="choose">{{ choose }}</pre>
+            <a data-id="animals" href="#"><pre>{{ animals }}</pre></a>
+            <a data-id="countries" href="#"><pre>{{ countries }}</pre></a>
+            <a data-id="fruits" href="#"><pre>{{ fruits }}</pre></a>
+            <a data-id="vegetables" href="#"><pre>{{ vegetables }}</pre></a>
+        </div>
+
+        <div id="guess_form">
+            <form id="check">
+            <input name="guess" autocomplete="off" id="guess" type="text" placeholder="Guess a letter or full password">
+            </form>
+            <div id="blanks"></div> <br><div id="chosen_category"></div>
+            <div id="message"></div>
+            <div id="new_game"><a id="new_game_button" href="#">Start a new game?</a></div>
+        </div>
+
+        <div id="hangman">
+           <pre id="hangman_ascii"></pre>
+        </div>
+    </div>
+</html>
+
