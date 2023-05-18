@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from pyfiglet import Figlet
-from random import choice
 from django.http import JsonResponse
+from . import helpers
 
 # Create your views here.
 def index(request):
@@ -29,17 +29,9 @@ def index(request):
     })
 
 def generate_password(request, category):
-    # Empty list to fill with words from given category
-    words = []
 
-
-    # Read from a chosen file and put the words inside the words list
-    category = f"categories/{category.lower()}.txt"
-    with open(category) as file:
-        for line in file:
-            words.append(line.upper().replace("\n", ""))
     # Return random word from the category
-    password = choice(words)
+    password = helpers.get_answer(category)
     return JsonResponse(password, safe=False, status=200)	
 
 def check(request, answer, guess):

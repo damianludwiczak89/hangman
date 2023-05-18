@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#message').innerHTML = "";
         document.querySelector('#new_game').style.display = "none";
         document.querySelector('#guess').disabled = false;
+        document.querySelector('#blanks').style.animationPlayState = "paused";
         mistakes = 0;
 
     }
