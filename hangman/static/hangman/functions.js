@@ -203,7 +203,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => {
             let blanks = document.querySelector('#blanks').innerHTML;
             document.querySelector('#guess').value = "";
-            input = `\n${input}\n${guess}`
+            if (input === ""){
+                input = guess;
+            }
+            else {
+            input = `${input}, ${guess}`
+            }
             document.querySelector('#input').innerHTML = input;
             // If response is 1, that means full password is guessed, and user won
             if (response === 1) {
