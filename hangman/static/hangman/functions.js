@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var element = document.body;
         element.classList.toggle("dark-mode");
     }
-    
+
 
     function new_game(){
         document.querySelector('#guess_form').style.display = "none";
@@ -116,16 +116,18 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#guess').disabled = false;
         document.querySelector('#blanks').style.animationPlayState = "paused";
         document.querySelector('#input_main').style.display = "none";
+        document.querySelector('#input').innerHTML = "";
+        input = "";
         mistakes = 0;
 
     }
 
-    
+
 
 
     fetch('/hangman_ascii/'+7+'')
     .then(response => response.json())
-    .then(drawing => { 
+    .then(drawing => {
         document.querySelector('#hangman_ascii').innerHTML = drawing;
     });
 
@@ -142,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.onclick = function () {
             fetch('/generate_password/'+button.dataset.id+'')
             .then(response => response.json())
-            .then(password => { 
+            .then(password => {
                 // Set global variable answer to generated password
                 answer = password;
 
@@ -183,9 +185,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Show hangman from start form
                 fetch('/hangman_ascii/'+0+'')
                 .then(response => response.json())
-                .then(drawing => { 
+                .then(drawing => {
                     document.querySelector('#hangman_ascii').innerHTML = drawing;
-                
+
             })});
     }});
 
@@ -193,12 +195,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let mistakes = 0;
     let input = "";
     // Check if input is correct
-    document.querySelector('#check').onsubmit = () =>{ 
+    document.querySelector('#check').onsubmit = () =>{
         let guess = document.querySelector('#guess').value;
         let message = document.querySelector('#message');
         fetch('/check/'+answer+'/'+guess+'')
         .then(response => response.json())
-        .then(response => { 
+        .then(response => {
             let blanks = document.querySelector('#blanks').innerHTML;
             document.querySelector('#guess').value = "";
             input = `\n${input}\n${guess}`
@@ -208,9 +210,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector('#blanks').style.animationPlayState = "running";
                 document.querySelector('#blanks').style.animationName = "grow";
                 reset_animation(document.querySelector('#blanks'));
-                message.innerHTML = "Congratulations, you won!"; 
-                guess = answer;     
-                
+                message.innerHTML = "Congratulations, you won!";
+                document.querySelector('#guess').disabled = true;
+                guess = answer;
+
                 // Update stats
 
                 won++;
@@ -237,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // show message in instead of blanks
                 fetch('/blank/'+blanks+'/'+answer+'/'+guess+'')
                 .then(response => response.json())
-                .then(updated => { 
+                .then(updated => {
                     document.querySelector('#blanks').innerHTML = updated;
                     document.querySelector('#new_game').style.display = "block";
                     document.querySelector('#new_game_button').onclick = function () {
@@ -249,20 +252,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // If response is 2, that means user input one letter that is in the answer
             else if (response === 2) {
-                
+
                 // Check if this letter has already been guessed before, if it was, increment mistake and update hangman
                 if (blanks.includes(guess.toUpperCase())) {
                     mistakes++;
                     fetch('/hangman_ascii/'+mistakes+'')
                     .then(response => response.json())
-                    .then(drawing => { 
+                    .then(drawing => {
                         document.querySelector('#hangman_ascii').innerHTML = drawing;
                         document.querySelector('#hangman_ascii').style.animationPlayState = "running";
                         document.querySelector('#hangman_ascii').style.animationName = "reset";
                         document.querySelector('#hangman_ascii').style.animationPlayState = "running";
                         document.querySelector('#hangman_ascii').style.animationName = "grow";
                         reset_animation(document.querySelector('#hangman_ascii'));
-                    
+
                 });
                     message.innerHTML = "This letter has already been found!";
 
@@ -276,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 }
-                
+
                 // Display blanks with the letter that user just guessed
 
                 else {
@@ -284,10 +287,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.querySelector('#blanks').style.animationPlayState = "running";
                     document.querySelector('#blanks').style.animationName = "grow";
                     reset_animation(document.querySelector('#blanks'));
-                    
+
                     fetch('/blank/'+blanks+'/'+answer+'/'+guess+'')
                     .then(response => response.json())
-                    .then(updated => { 
+                    .then(updated => {
                         document.querySelector('#blanks').innerHTML = updated;
 
                         // If this was last missing letter - user has won
@@ -296,6 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         else {
                             message.innerHTML = "Congratulations, you won!";
+                            document.querySelector('#guess').disabled = true;
                                 // Update stats
                                 won++;
                                 localStorage.setItem('won', won);
@@ -325,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 new_game();
                                 return;
                             }
-                            
+
                         }
                     });
 
@@ -338,14 +342,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 mistakes++;
                 fetch('/hangman_ascii/'+mistakes+'')
                 .then(response => response.json())
-                .then(drawing => { 
+                .then(drawing => {
 
                     document.querySelector('#hangman_ascii').innerHTML = drawing;
                     document.querySelector('#hangman_ascii').style.animationPlayState = "running";
                     document.querySelector('#hangman_ascii').style.animationName = "grow";
                     reset_animation(document.querySelector('#hangman_ascii'));
             });
-            
+
             if (mistakes === 7) {
                 document.querySelector('#guess').disabled = true;
                 message.innerHTML = `No match! You died! The answer was ${answer}`;
@@ -362,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
             }
-        }); 
+        });
         return false;
     };
 });
