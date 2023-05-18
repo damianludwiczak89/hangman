@@ -75,7 +75,7 @@ body {
 }
 
 #night_mode {
-    position: fixed;
+    position: absolute;
     margin-top: 45px;
     padding:5px;
     font-size: 12px;
