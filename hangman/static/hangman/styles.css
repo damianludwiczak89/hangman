@@ -43,6 +43,8 @@ body {
 
 }
 
+
+
 #title {
     text-align: center;
 }
@@ -170,3 +172,9 @@ height: 0;
   .slider.round:before {
     border-radius: 50%;
   }
+
+.growable:hover {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+}
