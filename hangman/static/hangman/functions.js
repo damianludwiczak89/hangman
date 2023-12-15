@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#input_main').style.display = "none";
 
     // Generate password from chosen category
-    document.querySelectorAll('a').forEach(function(button) {
+    document.querySelectorAll('#category').forEach(function(button) {
         button.onclick = function () {
             fetch('/generate_password/'+button.dataset.id+'')
             .then(response => response.json())

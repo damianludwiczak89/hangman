@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{% static 'hangman/styles.css' %}" rel="stylesheet">
         <script src="{% static 'hangman/functions.js' %}"></script>
-        <link rel="icon" type="image/icon type" href="{% static 'hangman/favicon.png' %}" >
+        <link rel="icon" type="image/icon type" href="{% static 'hangman/favicon.png' %}">
     </head>
     <body>
         <div id="night_mode">night mode</div>
@@ -38,10 +38,10 @@
     <div id="menu">
         <div id="categories">
             <pre id="choose">{{ choose }}</pre>
-            <a data-id="animals" href="#"><pre class="growable">{{ animals }}</pre></a>
-            <a data-id="countries" href="#"><pre class="growable">{{ countries }}</pre></a>
-            <a data-id="fruits" href="#"><pre class="growable">{{ fruits }}</pre></a>
-            <a data-id="vegetables" href="#"><pre class="growable"> {{ vegetables }}</pre></a>
+            <a data-id="animals" id="category" href="#"><pre class="growable">{{ animals }}</pre></a>
+            <a data-id="countries" id="category" href="#"><pre class="growable">{{ countries }}</pre></a>
+            <a data-id="fruits" id="category" href="#"><pre class="growable">{{ fruits }}</pre></a>
+            <a data-id="vegetables" id="category" href="#"><pre class="growable"> {{ vegetables }}</pre></a>
         </div>
 
         <div id="guess_form">
