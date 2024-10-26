@@ -1,4 +1,4 @@
-#Hangman Game
+# Hangman Game
 http://hangmangame.pythonanywhere.com - sometimes loads on a 2nd time, server side issue
 
 ## Setup
